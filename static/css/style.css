@@ -1,3 +1,8 @@
 body{
     font-family: 'Times New Roman', Times, serif !important;
 }
+
+#generated_album_art{
+    width: 500px;
+    height: 100%;
+}

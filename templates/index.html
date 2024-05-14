@@ -5,5 +5,31 @@
 
 
 {% block body %}
-    {{ data }}
+
+
+
+
+<!--  -->
+<div class="row mt-5">
+    <div class="col-sm-6">
+        <form id="artForm">
+            <div class="form-group">
+                <label for="lyricsInput">Your lyrics</label>
+                <textarea class="form-control" id="lyricsInput" rows="5" required></textarea>
+            </div>
+
+            <div class="form-group mt-3">
+                <label for="styleInput">Any addtional styling suggestion?</label>
+                <textarea class="form-control" id="styleInput" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Generate Track Art</button>
+        </form>
+    </div>
+    <div class="col-sm-6" id="result">
+        <img id="generated_album_art" src="" alt="">
+        <!-- {{ data }} -->
+    </div>
+</div>
+
+
 {% endblock %}
