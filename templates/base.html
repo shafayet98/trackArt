@@ -43,6 +43,12 @@
     document.getElementById('artForm').addEventListener('submit', function (event) {
       event.preventDefault(); // Prevent the default form submission
 
+      document.querySelector(".about_us").classList.remove("d-block");
+      document.querySelector(".about_us").classList.add("d-none");
+
+      document.querySelector(".generating").classList.remove("d-none");
+      document.querySelector(".generating").classList.add("d-block");
+
       let lyrics = document.getElementById("lyricsInput").value;
       let artSuggestion = document.getElementById("styleInput").value;
       let trackName = document.getElementById("trackName").value;
@@ -77,6 +83,10 @@
         .then(response => response.json())
         .then(data => {
           // console.log('Success:', data);
+          document.querySelector(".generating").classList.remove("d-block");
+          document.querySelector(".generating").classList.add("d-none");
+        
+
           document.getElementById('generated_album_art').src = data.result;
           song_meaning = data.meaning;
 
@@ -121,7 +131,7 @@
 
       const targetElement = document.querySelector(".song_meaning");
       targetElement.innerHTML = '';  // Clear any existing text
-      typeText(targetElement, song_meaning, 50);
+      typeText(targetElement, song_meaning, 1.5);
       // document.querySelector(".song_meaning").innerHTML = song_meaning;
     })
 
