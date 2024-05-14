@@ -28,3 +28,6 @@ body {
     border-radius: 30px;
 }
 
+.showArt, .showMeaning{
+    border: 2px solid black !important;
+}
