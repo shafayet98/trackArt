@@ -107,9 +107,20 @@ def index():
         )
 
         image_url = response.data[0].url
+
+        query = [{
+                "role": "user",
+                "content": "You are good at analyse the meaning of the song. What is the meaning of the given song? Return the summary of your answer. Here is the song:" + lyrics
+            }]
+        chat_completion_response = client.chat.completions.create(
+            messages=query,
+            model="gpt-4o",
+            stream=False
+        )
         
-        
-        return jsonify({'message': 'Form received!', 'result': image_url, 'previewURL': preview_url})
+        songMeaning = chat_completion_response.choices[0].message.content
+
+        return jsonify({'message': 'Form received!', 'result': image_url, 'previewURL': preview_url, 'meaning': songMeaning})
 
     return render_template('index.html')
 

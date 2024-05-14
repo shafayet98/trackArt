@@ -30,13 +30,16 @@
     <source src="../static/images/video_demo_02.mp4" type="video/mp4">
   </video>
   <div class="container">
-    
+
     {% block body %}
     {% endblock %}
   </div>
 
 
   <script>
+
+    var song_meaning;
+
     document.getElementById('artForm').addEventListener('submit', function (event) {
       event.preventDefault(); // Prevent the default form submission
 
@@ -45,23 +48,24 @@
       let trackName = document.getElementById("trackName").value;
       let artistName = document.getElementById("artistName").value;
 
-      if (artistName == "" && trackName == ""){
+
+
+
+      if (artistName == "" && trackName == "") {
         data = {
           "lyrics": lyrics,
           "suggestion": artSuggestion,
           "trackName": "",
-          "artistName" : ""
-          }
-      }else{
+          "artistName": ""
+        }
+      } else {
         data = {
-        "lyrics": lyrics,
-        "suggestion": artSuggestion,
-        "trackName": trackName,
-        "artistName" : artistName
+          "lyrics": lyrics,
+          "suggestion": artSuggestion,
+          "trackName": trackName,
+          "artistName": artistName
+        }
       }
-      }
-
-      
 
       fetch('/', {
         method: 'POST',
@@ -74,21 +78,52 @@
         .then(data => {
           // console.log('Success:', data);
           document.getElementById('generated_album_art').src = data.result;
-          if(data.previewURL){
+          song_meaning = data.meaning;
+
+          document.querySelector(".showArt").style.display = 'none';
+          document.querySelector(".showMeaning").classList.remove('d-none');
+          document.querySelector(".showMeaning").classList.add('d-block');
+
+          if (data.previewURL) {
             srcurl = data.previewURL;
-            console.log(typeof(srcurl));
+            console.log(typeof (srcurl));
             console.log(srcurl);
             let audioPlayer = document.getElementById('audioPlayer');
             audioPlayer.src = srcurl;
             audioPlayer.loop = true; // Set to loop if desired
             audioPlayer.play();
             console.log(audioPlayer);
+
           }
+          document.getElementById("artForm").classList.remove("d-block");
+          document.getElementById("artForm").classList.add("d-none");
         })
         .catch((error) => {
           console.error('Error:', error);
         });
     });
+
+    function typeText(element, text, delay = 100) {
+      let index = 0;
+
+      function appendCharacter() {
+        if (index < text.length) {
+          element.innerHTML += text.charAt(index);
+          index++;
+          setTimeout(appendCharacter, delay);
+        }
+      }
+
+      appendCharacter();
+    }
+    document.querySelector(".showMeaning").addEventListener('click', function (e) {
+      e.preventDefault();
+
+      const targetElement = document.querySelector(".song_meaning");
+      targetElement.innerHTML = '';  // Clear any existing text
+      typeText(targetElement, song_meaning, 100);
+      // document.querySelector(".song_meaning").innerHTML = song_meaning;
+    })
 
   </script>
 </body>

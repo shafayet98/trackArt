@@ -8,8 +8,8 @@
 
 <!--  -->
 <div class="row mt-5 mainContainer">
-    <div class="col-sm-5">
-        <form id="artForm">
+    <div class="col-sm-6">
+        <form id="artForm" class="d-block">
             <div class="form-group">
                 <label for="lyricsInput">Your lyrics (Required)</label>
                 <textarea class="form-control" id="lyricsInput" rows="7" required></textarea>
@@ -35,10 +35,14 @@
                 </div>
             </div>
            
-            <button type="submit" class="btn btn-primary mt-3">Generate Track Art</button>
+            <button type="submit" class="btn btn-primary mt-3 showArt">Generate Track Art</button>
         </form>
+        <button class="btn btn-primary mt-3 showMeaning d-none">What's the meaning of this song?</button>
+        <div class="m-3">
+            <p class="song_meaning"></p>
+        </div>
     </div>
-    <div class="col-sm-7" id="result">
+    <div class="col-sm-6" id="result">
         <img id="generated_album_art" src="" alt="">
         <audio id="audioPlayer" type="audio/mp3"></audio>
         <!-- {{ data }} -->
